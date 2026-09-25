@@ -40,3 +40,8 @@ next-env.d.ts
 
 # lockfile local (Webflow Cloud usa npm + package-lock.json)
 pnpm-lock.yaml
+
+# cloudflare / opennext
+/.open-next/
+/.wrangler/
+.dev.vars*

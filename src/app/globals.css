@@ -1,19 +1,279 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0b1020;
-  --foreground: #f5f7ff;
+  --bg: #0a0f24;
+  --panel: #121a3a;
+  --panel-2: #1a2450;
+  --line: rgba(255, 255, 255, 0.1);
+  --text: #f4f6ff;
+  --muted: #9aa6d6;
+  --yellow: #ffcb05;
+  --yellow-dark: #c79a00;
+  --blue: #2a75bb;
+  --navy: #1d2c6b;
+  --red: #e3350d;
+  --green: #22c55e;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-line: var(--line);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-poke-yellow: var(--yellow);
+  --color-poke-blue: var(--blue);
+  --color-poke-navy: var(--navy);
+  --color-poke-red: var(--red);
+  --color-ok: var(--green);
+  --font-sans: var(--font-nunito);
+  --font-display: var(--font-luckiest);
+}
+
+html {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(42, 117, 187, 0.35), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgba(227, 53, 13, 0.18), transparent 60%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font-nunito), system-ui, sans-serif;
+}
+
+.panel {
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  border: 1px solid var(--line);
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6);
+}
+
+/* Título estilo logo: amarillo con borde azul */
+.logo-text {
+  font-family: var(--font-luckiest), system-ui, sans-serif;
+  color: var(--yellow);
+  -webkit-text-stroke: 0.08em var(--navy);
+  paint-order: stroke fill;
+  text-shadow: 0.06em 0.08em 0 var(--navy);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+/* En la capa components para que las utilidades de Tailwind las puedan pisar. */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    font-weight: 800;
+    transition: transform 0.12s ease, filter 0.12s ease, background 0.12s ease;
+  }
+  .btn:active:not(:disabled) {
+    transform: translateY(2px) scale(0.98);
+  }
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .btn-primary {
+    background: var(--yellow);
+    color: #1a1a1a;
+    box-shadow: 0 4px 0 var(--yellow-dark);
+  }
+  .btn-primary:hover:not(:disabled) {
+    filter: brightness(1.08);
+  }
+  .btn-ghost {
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* ---------- Escenario: rayos del anime ---------- */
+.stage {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.rays {
+  position: absolute;
+  inset: -75%;
+  z-index: -2;
+  background: repeating-conic-gradient(from 0deg, #1f5fae 0deg 9deg, #3b8be0 9deg 18deg);
+  animation: spin 40s linear infinite;
+}
+.rays.fast {
+  animation-duration: 6s;
+}
+.stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at center, transparent 30%, rgba(8, 14, 40, 0.75) 100%);
+}
+
+.silhouette {
+  filter: brightness(0) drop-shadow(0 0 14px rgba(255, 255, 255, 0.45));
+  user-select: none;
+  pointer-events: none;
+}
+.revealed {
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.45));
+  animation: reveal 0.7s ease-out;
+  user-select: none;
+  pointer-events: none;
+}
+.pop-in {
+  animation: pop-in 0.45s cubic-bezier(0.2, 1.6, 0.4, 1) both;
+}
+.flash {
+  position: absolute;
+  inset: 0;
+  background: white;
+  pointer-events: none;
+  animation: flash 0.6s ease-out forwards;
+}
+
+/* ---------- Intro "¿Quién es ese Pokémon?" ---------- */
+.intro-line {
+  display: block;
+  animation: intro-in 0.6s cubic-bezier(0.2, 1.5, 0.4, 1) both, wobble 1.6s ease-in-out 0.6s infinite;
+}
+.intro-line:nth-child(2) {
+  animation-delay: 0.35s, 0.95s;
+}
+
+/* ---------- Timer ---------- */
+.timer-urgent {
+  animation: pulse 0.5s ease-in-out infinite alternate;
+}
+
+.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+.confetti {
+  position: absolute;
+  top: -12px;
+  width: 10px;
+  height: 14px;
+  border-radius: 2px;
+  animation: fall 2.2s cubic-bezier(0.25, 0.6, 0.5, 1) forwards;
+}
+
+.toast {
+  animation: toast-in 0.3s ease-out;
+}
+
+.feed-item {
+  animation: slide-in 0.4s ease-out both;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes pop-in {
+  from {
+    transform: scale(0.2) rotate(-12deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+@keyframes reveal {
+  from {
+    filter: brightness(0);
+    transform: scale(0.92);
+  }
+  to {
+    filter: brightness(1) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.45));
+    transform: scale(1);
+  }
+}
+@keyframes flash {
+  from {
+    opacity: 0.9;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes intro-in {
+  from {
+    transform: scale(3) rotate(-10deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(-4deg);
+    opacity: 1;
+  }
+}
+@keyframes wobble {
+  0%,
+  100% {
+    transform: rotate(-4deg) scale(1);
+  }
+  50% {
+    transform: rotate(-2deg) scale(1.05);
+  }
+}
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-8px);
+  }
+  75% {
+    transform: translateX(8px);
+  }
+}
+@keyframes fall {
+  to {
+    transform: translateY(520px) rotate(720deg);
+    opacity: 0;
+  }
+}
+@keyframes toast-in {
+  from {
+    transform: translate(-50%, 20px);
+    opacity: 0;
+  }
+}
+@keyframes slide-in {
+  from {
+    transform: translateX(-12px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rays,
+  .intro-line,
+  .timer-urgent,
+  .confetti {
+    animation: none !important;
+  }
 }
