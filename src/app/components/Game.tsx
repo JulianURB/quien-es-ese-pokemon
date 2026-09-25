@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { INTRO_MS, normalizeName } from "@/lib/game";
 import { POKEMON_COUNT } from "@/lib/pokemon";
@@ -7,6 +8,7 @@ import { ApiError, api, countdown, fmt, roundImageUrl, seconds, shareApp, shareT
 import { setMuted, sfx } from "@/lib/sfx";
 import type { Attempts, Me, RoundAnswer, RoundStart } from "@/lib/types";
 import { Confetti } from "./Confetti";
+import { Footer } from "./Footer";
 import { CountUp } from "./CountUp";
 import { Leaderboard } from "./Leaderboard";
 import { Pokeball } from "./Pokeball";
@@ -183,8 +185,14 @@ export function Game() {
           <button onClick={toggleMute} className="btn btn-ghost h-10 w-10" aria-label={muted ? "Activar sonido" : "Silenciar"}>
             {muted ? "🔇" : "🔊"}
           </button>
+          <Link href="/sobre-mi" className="btn btn-ghost h-10 min-w-10 px-3 text-sm" aria-label="Sobre mí">
+            👤 <span className="hidden md:inline">Sobre mí</span>
+          </Link>
+          <Link href="/compartir" className="btn btn-ghost h-10 min-w-10 px-3 text-sm" aria-label="Compartir con QR">
+            📱 <span className="hidden md:inline">QR</span>
+          </Link>
           <button onClick={() => share(shareText(null))} className="btn btn-primary h-10 px-4 text-sm">
-            🔗 <span>Invitar amigos</span>
+            🔗 <span>Invitar</span>
           </button>
         </div>
       </header>
@@ -244,14 +252,7 @@ export function Game() {
         </aside>
       </main>
 
-      <footer className="py-8 text-center text-xs leading-relaxed text-muted">
-        Proyecto fan hecho para la hackatón de Webflow · Datos e imágenes de{" "}
-        <a href="https://pokeapi.co" className="underline hover:text-text" target="_blank" rel="noreferrer">
-          PokéAPI
-        </a>
-        <br />
-        Pokémon y sus nombres son marcas de Nintendo, Creatures y Game Freak.
-      </footer>
+      <Footer />
 
       {showDex && me && <Pokedex caught={me.caught} onClose={() => setShowDex(false)} />}
 
