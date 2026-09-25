@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { GITHUB, LINKEDIN } from "@/lib/links";
 import { Footer } from "../components/Footer";
 import { PageHeader } from "../components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Sobre mí · ¿Quién es ese Pokémon?",
-  description: "Julian Urbani, software builder. Hecho para la hackatón de Webflow en Nerdearla 2026.",
+  description: "Julian Urbani, software builder.",
 };
 
-const LINKEDIN = "https://www.linkedin.com/in/julian-urbani/";
 
 const STACK = [
   { icon: "⚡", title: "Next.js + React", text: "Next.js 16 y React 19 con Tailwind. Las animaciones, hechas a mano con CSS." },
-  { icon: "☁️", title: "Vive en Webflow Cloud", text: "Corre en Cloudflare Workers, con una base SQLite para los jugadores y el ranking." },
+  { icon: "☁️", title: "En el edge", text: "Corre en Cloudflare Workers, con una base SQLite para los jugadores y el ranking." },
   { icon: "🕵️", title: "Nada de trampas", text: "El servidor elige el Pokémon, toma el tiempo y reparte los puntos. La respuesta nunca llega a tu navegador, así que no la busques en la consola 😉" },
   { icon: "🔋", title: "5 intentos, ni uno más", text: "El límite se chequea y se descuenta en una sola consulta SQL: aunque mandes pedidos en paralelo, no se cuela un sexto." },
   { icon: "📡", title: "PokéAPI", text: "De ahí salen los nombres en español, los tipos, las imágenes y los gritos de los 493 Pokémon." },
@@ -35,8 +34,7 @@ export default function SobreMiPage() {
             Software builder
           </p>
           <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed">
-            ¡Hola! 👋 Me gusta armar cosas de punta a punta, de la base de datos a la última animación. Este jueguito
-            lo hice para la <b className="text-poke-yellow">hackatón de Webflow</b> en Nerdearla 2026.
+            ¡Hola! 👋 Me gusta armar cosas de punta a punta, de la base de datos a la última animación.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a href={LINKEDIN} target="_blank" rel="noreferrer" className="btn bg-[#0a66c2] px-6 py-3 text-white shadow-[0_4px_0_#07437f] hover:brightness-110">
@@ -45,9 +43,12 @@ export default function SobreMiPage() {
               </svg>
               Sumame en LinkedIn
             </a>
-            <Link href="/compartir" className="btn btn-ghost px-6 py-3">
-              📱 Compartir con QR
-            </Link>
+            <a href={GITHUB} target="_blank" rel="noreferrer" className="btn bg-white px-6 py-3 text-black shadow-[0_4px_0_#9aa6d6] hover:brightness-95">
+              <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current" aria-hidden="true">
+                <path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .32.21.69.82.57A12 12 0 0 0 12 .3" />
+              </svg>
+              Mirá mi GitHub
+            </a>
           </div>
         </section>
 
@@ -63,14 +64,6 @@ export default function SobreMiPage() {
               </li>
             ))}
           </ul>
-          <a
-            href="https://github.com/JulianURB/quien-es-ese-pokemon"
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn-ghost mt-5 px-5 py-2 text-sm"
-          >
-            Chusmeá el código en GitHub 👀
-          </a>
         </section>
       </main>
 

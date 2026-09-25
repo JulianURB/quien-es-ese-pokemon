@@ -1,6 +1,6 @@
 # ¿Quién es ese Pokémon?
 
-Juego de navegador para la hackatón de Webflow: aparece la silueta de un Pokémon y tenés 30 segundos para elegir entre 4 opciones. Mientras más rápido respondas, más puntos. 5 intentos cada 30 minutos y un ranking para ver quién es el mejor entrenador.
+Juego de navegador de [Julian Urbani](https://github.com/JulianURB): aparece la silueta de un Pokémon y tenés 30 segundos para elegir entre 4 opciones. Mientras más rápido respondas, más puntos. 5 intentos cada 30 minutos y un ranking para ver quién es el mejor entrenador.
 
 ## Qué tiene
 
@@ -58,4 +58,4 @@ Webflow Cloud instala con `npm ci` y construye con `npm run build`, así que `pa
 
 ---
 
-Proyecto fan sin fines de lucro. Pokémon y sus nombres son marcas de Nintendo, Creatures y Game Freak.
+Hecho por [Julian Urbani](https://github.com/JulianURB) · [LinkedIn](https://www.linkedin.com/in/julian-urbani/). Pokémon es marca de Nintendo, Creatures y Game Freak.
